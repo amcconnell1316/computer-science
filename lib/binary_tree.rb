@@ -171,6 +171,22 @@ class BSTree
     left_depth > right_depth ? left_depth : right_depth
   end
 
+  def balanced?
+    balanced_inner(@root, 0) => [_, is_balanced]
+    is_balanced
+  end
+
+  def balanced_inner(node, current_depth)
+    node.left.nil? ? [current_depth, true] : balanced_inner(node.left, current_depth + 1) => [max_left_depth, left_balanced]
+    node.right.nil? || !left_balanced ? [current_depth, true] : balanced_inner(node.right, current_depth + 1) => [max_right_depth, right_balanced]
+    node_balanced = (max_left_depth == max_right_depth || max_left_depth +1 == max_right_depth || max_left_depth -1 == max_right_depth) && left_balanced && right_balanced
+    [max_left_depth > max_right_depth ? max_left_depth : max_right_depth, node_balanced]
+  end
+
+  def rebalance
+    array = self.inorder
+    @root = build_tree(array)
+  end
 
   #From odin project
   def pretty_print(node = @root, prefix = '', is_left = true)
@@ -181,6 +197,7 @@ class BSTree
 end
 
 test = BSTree.new([2,4,5,6,7,2,6,7,4,0])
+puts test.balanced?
 test.insert(1)
 test.insert(8)
 test.insert(50)
@@ -195,17 +212,20 @@ test.delete(4)
 test.delete(0)
 test.delete(50)
 test.pretty_print
-p test.level_order
-#test.level_order {|node| puts node.data * 2}
-p test.inorder
-#test.inorder {|node| puts node.data * 2}
-p test.preorder
-#test.preorder {|node| puts node.data * 2}
-p test.postorder
-#test.postorder {|node| puts node.data * 2}
-puts test.height
-puts test.height(node_60)
-puts test.height(node_72)
-puts test.depth(node_60)
-puts test.depth(node_72)
-p test.depth(BTNode.new(100))
+test.rebalance
+test.pretty_print
+# p test.level_order
+# #test.level_order {|node| puts node.data * 2}
+# p test.inorder
+# #test.inorder {|node| puts node.data * 2}
+# p test.preorder
+# #test.preorder {|node| puts node.data * 2}
+# p test.postorder
+# #test.postorder {|node| puts node.data * 2}
+# puts test.height
+# puts test.height(node_60)
+# puts test.height(node_72)
+# puts test.depth(node_60)
+# puts test.depth(node_72)
+# p test.depth(BTNode.new(100))
+# puts test.balanced?
