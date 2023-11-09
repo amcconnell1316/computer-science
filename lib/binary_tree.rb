@@ -196,36 +196,22 @@ class BSTree
   end
 end
 
-test = BSTree.new([2,4,5,6,7,2,6,7,4,0])
-puts test.balanced?
-test.insert(1)
-test.insert(8)
-test.insert(50)
-test.insert(30)
-node_60 = test.insert(60)
-test.insert(70)
-test.insert(65)
-node_72 = test.insert(72)
-#test.pretty_print
-
-test.delete(4)
-test.delete(0)
-test.delete(50)
+test = BSTree.new(Array.new(15) { rand(1..100) })
 test.pretty_print
+p test.level_order
+p test.inorder
+p test.preorder
+p test.postorder
+test.insert(rand(100..200))
+test.insert(rand(100..200))
+test.insert(rand(100..200))
+test.insert(rand(100..200))
+test.pretty_print
+puts test.balanced?
 test.rebalance
 test.pretty_print
-# p test.level_order
-# #test.level_order {|node| puts node.data * 2}
-# p test.inorder
-# #test.inorder {|node| puts node.data * 2}
-# p test.preorder
-# #test.preorder {|node| puts node.data * 2}
-# p test.postorder
-# #test.postorder {|node| puts node.data * 2}
-# puts test.height
-# puts test.height(node_60)
-# puts test.height(node_72)
-# puts test.depth(node_60)
-# puts test.depth(node_72)
-# p test.depth(BTNode.new(100))
-# puts test.balanced?
+puts test.balanced?
+p test.level_order
+p test.inorder
+p test.preorder
+p test.postorder
